@@ -2,7 +2,7 @@
 
 namespace ScrumBundle\Controller;
 
-use AppBundle\Services\Helpers;
+
 use AppBundle\Services\JwtAuth;
 use ScrumBundle\Entity\UserStory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -10,49 +10,52 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 
 class UserStoryController extends Controller
 {
+
+
     /**
      *
      * @Route("/story/{id}")
      * @Method("POST")
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
      */
     public function showUserStory($id, Request $request)
     {
 
-        $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization",null);
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $identity = $jwt_auth->checkToken($token, true);
-        $story = $this->getDoctrine()->getRepository('ScrumBundle:UserStory')->find($id);
 
-        if (empty($story)) {
-            $response = array(
-                'message' => 'User Story not found',
-                'error' => null,
-                'data' => null
-            );
+            $story = $this->getDoctrine()->getRepository('ScrumBundle:UserStory')->find($id);
 
-            return new JsonResponse($response);
-        }
+            if (empty($story)) {
+                 $response = array(
+                    'message' => 'User Story not found',
+                    'error' => null,
+                    'data' => null
+                 );
 
-        $data = $this->get('jms_serializer')->serialize($story, 'json');
+                 return new JsonResponse($response);
+            }
 
 
-        $response = array(
-            'message' => 'success',
-            'errors' => null,
-            'data' => json_decode($data)
+           $data = $this->get('jms_serializer')->serialize($story, 'json');
 
-        );
+                $response = array(
+                 'message' => 'success',
+                 'errors' => null,
+                 'data' => json_decode($data)
+                 );
 
-        return new JsonResponse($response);
+           return new JsonResponse($response);
 
 
         }else{
@@ -64,34 +67,34 @@ class UserStoryController extends Controller
             );
         }
 
-        return $helpers->json($data);
+        return new JsonResponse($data);
     }
 
 
     /**
      * @Route("/new/story")
      * @Method({"POST"})
+     * @param Request $request
+     * @return JsonResponse
      */
     public function CreateStory(Request $request)
     {
 
-        $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization", null);
         $authCheck = $jwt_auth->checkToken($token);
+
         if ($authCheck) {
-            $identity = $jwt_auth->checkToken($token, true);
-            $parametersAsArray = [];
+
+
             if ($content = $request->getContent()) {
+
                 $parametersAsArray = json_decode($content, true);
-                $em = $this->getDoctrine()->getManager();
 
                 if ($parametersAsArray != null) {
 
-
                     $story = new UserStory();
-
                     $em = $this->getDoctrine()->getManager();
 
                     $epic_id=$parametersAsArray['epic_id'];
@@ -107,7 +110,6 @@ class UserStoryController extends Controller
                     $story->setStory($epic);
 
 
-
                     $em->persist($story);
                     $em->flush();
 
@@ -118,45 +120,51 @@ class UserStoryController extends Controller
                     );
                 } else {
                     $data = array(
-                        "data" => "parameters failed"
+                        'message' => 'failed',
+                        'errors' => null,
+                        'data' => null
                     );
 
-
                 }
-            }
-            else{
-                $data = array(
-                    "data" => "Failed ! check your token validation !!"
-                );
+
+                return new JsonResponse($data);
             }
 
-            return $helpers->json($data);
 
         }
+        else{
+            $data = array(
+                'message' => 'Failed !',
+                'errors' => 'check your token validation !!',
+                "data" => null
+            );
+        }
 
-
+        return new JsonResponse($data);
     }
-
 
 
     /**
      * @Route("/story/{id}/edit")
      * @Method({"POST"})
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
      */
     public function UpdateStory($id, Request $request)
     {
 
-        $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization", null);
         $authCheck = $jwt_auth->checkToken($token);
+
         if ($authCheck) {
-            $identity = $jwt_auth->checkToken($token, true);
-            $parametersAsArray = [];
+
             if ($content = $request->getContent()) {
+
                 $parametersAsArray = json_decode($content, true);
-                $em = $this->getDoctrine()->getManager();
+
 
                 if ($parametersAsArray != null) {
 
@@ -181,28 +189,35 @@ class UserStoryController extends Controller
                     $em->persist($storyUpdate);
                     $em->flush();
 
-                    $data = array(
+                    $response = array(
                         'message' => 'story updated ! ',
                         'errors' => null,
                         "data" => null
                     );
                 } else {
-                    $data = array(
-                        "data" => "parameters failed"
+                    $response = array(
+                        "message" => "failed",
+                        'errors' => "send data to update your User Story",
+                        "data" => null
                     );
 
 
                 }
-            }
-            else{
-                $data = array(
-                    "data" => "Failed ! check your token validation !!"
-                );
-            }
 
-            return $helpers->json($data);
+                return new JsonResponse($response);
+            }
 
         }
+        else{
+            $data = array(
+                "message" => "Failed !",
+                'errors' => "check your token validation !!",
+                "data" => null
+            );
+        }
+
+
+        return new JsonResponse($data);
 
 
     }
@@ -211,54 +226,62 @@ class UserStoryController extends Controller
      *
      * @Route("/story/{id}/delete")
      * @Method("POST")
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
      */
     public function deleteUserStory($id, Request $request)
     {
 
-        $helpers = $this->get(Helpers::class);
+
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization",null);
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $identity = $jwt_auth->checkToken($token, true);
 
             $story=$this->getDoctrine()->getRepository('ScrumBundle:UserStory')->find($id);
 
-        if (empty($story)) {
+              if (empty($story)) {
 
-            $response=array(
-                'message'=>'User Story Not found !',
-                'errors'=>null,
-                'result'=>null
+                $response=array(
+                   'message'=>'User Story Not found !',
+                   'errors'=>null,
+                   'result'=>null
 
-            );
+                );
 
-            return new JsonResponse($response);
-        }
+                return new JsonResponse($response);
 
-        $em=$this->getDoctrine()->getManager();
-        $em->remove($story);
-        $em->flush();
-        $response=array(
-            'message'=>'User Story deleted !',
-            'errors'=>null,
-            'result'=>null
+              }
 
-        );
+              $em=$this->getDoctrine()->getManager();
+              $em->remove($story);
+              $em->flush();
+
+              $response=array(
+                    'message'=>'User Story deleted !',
+                    'errors'=>null,
+                    'result'=>null
+
+              );
 
 
-        return new JsonResponse($response);
+
+              return new JsonResponse($response);
+
 
         }else{
 
             $data = array(
-                'data'	=>'Failed ! check your token validation'
+                'data'	=>'Failed !',
+                'errors'=> 'check your token validation',
+                'result'=> null
             );
         }
 
-        return $helpers->json($data);
+        return new JsonResponse($data);
 
 
 
@@ -270,19 +293,17 @@ class UserStoryController extends Controller
      * @Method("POST")
      * @param $id
      * @param Request $request
-     * @return
+     * @return JsonResponse
      */
 
     public function DragAndDrop ($id ,Request $request){
 
-        $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization", null);
         $authCheck = $jwt_auth->checkToken($token);
         if ($authCheck) {
-            $identity = $jwt_auth->checkToken($token, true);
-            $parametersAsArray = [];
+
             if ($content = $request->getContent()) {
                 $parametersAsArray = json_decode($content, true);
 
@@ -308,16 +329,19 @@ class UserStoryController extends Controller
                     );
                 }
             }
-            else{
-                $data = array(
-                    "data" => "Failed ! check your token validation !!"
-                );
-            }
 
-            return $helpers->json($data);
 
         }
-}
+        else{
+            $data = array(
+                "message" => "Failed !",
+                'errors' =>  'check your token validation !!',
+                "data" => null
+            );
+        }
+
+        return new JsonResponse($data);
+    }
 
 
 }

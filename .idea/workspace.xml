@@ -2,26 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ae577a6-4c0a-43a3-9573-e953f8433e3d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Gestion_Scrum_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Gestion_Scrum_app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AppKernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AppKernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/routing.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/routing.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/security.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/security.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Services/Helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Services/Helpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Services/JwtAuth.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Services/JwtAuth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Services/Validate.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScrumBundle/Controller/EpicsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrumBundle/Controller/EpicsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScrumBundle/Controller/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrumBundle/Controller/ProjectController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScrumBundle/Controller/UserStoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrumBundle/Controller/UserStoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrumBundle/Entity/Epics.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrumBundle/Entity/Epics.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrumBundle/Entity/Project.php" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,14 +31,47 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/ProjectController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="347" column="45" selection-start-line="347" selection-start-column="45" selection-end-line="347" selection-end-column="45" />
+            <state relative-caret-position="-2224">
+              <caret line="345" column="32" lean-forward="true" selection-start-line="345" selection-start-column="32" selection-end-line="345" selection-end-column="32" />
               <folding>
                 <element signature="e#42#73#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/EpicsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2309">
+              <caret line="76" column="24" lean-forward="true" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+              <folding>
+                <element signature="e#43#74#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/UserStoryController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+              <folding>
+                <element signature="e#43#74#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/DefaultController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -95,7 +111,6 @@
         <option value="$PROJECT_DIR$/src/ScrumBundle/Entity/Epics.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Services/Helpers.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Services/JwtAuth.php" />
-        <option value="$PROJECT_DIR$/src/ScrumBundle/Controller/EpicsController.php" />
         <option value="$PROJECT_DIR$/app/AppKernel.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/ScrumBundle/Entity/Project.php" />
@@ -103,10 +118,11 @@
         <option value="$PROJECT_DIR$/app/config/security.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
         <option value="$PROJECT_DIR$/app/config/config.yml" />
-        <option value="$PROJECT_DIR$/src/ScrumBundle/Controller/UserStoryController.php" />
         <option value="$PROJECT_DIR$/app/config/services.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" />
         <option value="$PROJECT_DIR$/src/ScrumBundle/Controller/ProjectController.php" />
+        <option value="$PROJECT_DIR$/src/ScrumBundle/Controller/EpicsController.php" />
+        <option value="$PROJECT_DIR$/src/ScrumBundle/Controller/UserStoryController.php" />
       </list>
     </option>
   </component>
@@ -164,9 +180,9 @@
       <path value="$PROJECT_DIR$/vendor/nelmio/api-doc-bundle" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="170" />
-    <option name="y" value="122" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="1145" />
+    <option name="y" value="72" />
     <option name="width" value="1026" />
     <option name="height" value="554" />
   </component>
@@ -297,17 +313,18 @@
       <workItem from="1560026419324" duration="6531000" />
       <workItem from="1560069478304" duration="6485000" />
       <workItem from="1560077213243" duration="797000" />
+      <workItem from="1560154089792" duration="5937000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="153044000" />
+    <option name="totallyTimeSpent" value="158981000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="22" width="1382" height="754" extended-state="6" />
+    <frame x="1358" y="-8" width="1296" height="1010" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12254161" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21359223" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -320,7 +337,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.44122383" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.2086659" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -477,16 +494,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/UserStoryController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3366">
-          <caret line="206" selection-start-line="206" selection-end-line="206" />
-          <folding>
-            <element signature="e#42#73#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/AppCache.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -508,13 +515,6 @@
           <folding>
             <element signature="e#37#83#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -567,20 +567,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/EpicsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
-          <folding>
-            <element signature="e#42#73#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/ProjectController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="347" column="45" selection-start-line="347" selection-start-column="45" selection-end-line="347" selection-end-column="45" />
+        <state relative-caret-position="-2224">
+          <caret line="345" column="32" lean-forward="true" selection-start-line="345" selection-start-column="32" selection-end-line="345" selection-end-column="32" />
           <folding>
             <element signature="e#42#73#0#PHP" expanded="true" />
           </folding>
@@ -600,6 +590,33 @@
           <caret line="83" column="8" selection-start-line="83" selection-start-column="8" selection-end-line="83" selection-end-column="8" />
           <folding>
             <element signature="e#41#83#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/EpicsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2309">
+          <caret line="76" column="24" lean-forward="true" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+          <folding>
+            <element signature="e#43#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ScrumBundle/Controller/UserStoryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+          <folding>
+            <element signature="e#43#74#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

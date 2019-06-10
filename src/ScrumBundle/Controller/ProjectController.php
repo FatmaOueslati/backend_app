@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 
 class ProjectController extends Controller
 {
@@ -40,17 +40,15 @@ class ProjectController extends Controller
      */
     public function showProject($id, Request $request)
     {
-        $helpers = $this->get(Helpers::class);
+
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization",null);
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $identity = $jwt_auth->checkToken($token, true);
 
              $project = $this->getDoctrine()->getRepository('ScrumBundle:Project')->find($id);
-
 
         if (empty($project)) {
             $data = array(
@@ -87,7 +85,6 @@ class ProjectController extends Controller
         }
 
 
-
     }
 
     /**
@@ -110,14 +107,13 @@ class ProjectController extends Controller
      */
     public function listProject(Request $request)
     {
-        $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization",null);
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $identity = $jwt_auth->checkToken($token, true);
+
         $projects=$this->getDoctrine()->getRepository('ScrumBundle:Project')->findAll();
 
         if (!count($projects)){
@@ -178,22 +174,23 @@ class ProjectController extends Controller
      * )
      * @Route("/project/{id}/edit")
      * @Method({"POST"})
-
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
      */
     public function UpdateProject($id, Request $request)
     {
 
-        $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization", null);
         $authCheck = $jwt_auth->checkToken($token);
 
         if ($authCheck) {
-            $identity = $jwt_auth->checkToken($token, true);
+
 
             if ($content = $request->getContent()) {
-                $parametersAsArray = [];
 
                 $parametersAsArray = json_decode($content, true);
 
@@ -202,11 +199,6 @@ class ProjectController extends Controller
                     $project = $this->getDoctrine()->getRepository('ScrumBundle:Project')->find($id);
 
                     $em = $this->getDoctrine()->getManager();
-
-                    $usersAsArray =[];
-
-                    $user = [];
-
 
 
                     $project->setName($parametersAsArray['name']);
@@ -226,23 +218,28 @@ class ProjectController extends Controller
                     );
                 } else {
                     $data = array(
-                        "data" => "parameters failed"
+                        'data' => "failed",
+                        'errors' => "send data to update the project",
+                        'result' => null
                     );
 
 
                 }
 
-            return $helpers->json($data);
+                return new JsonResponse($data);
         }
 
 
         } else {
             $data = array(
-                "data" => "Failed ! check your token validation !!"
+                'data' => 'Failed !',
+                'errors' => 'check your token validation !',
+                'result' => null
             );
+
         }
 
-        return $helpers->json($data);
+        return new JsonResponse($data);
 
 
     }
@@ -258,14 +255,12 @@ class ProjectController extends Controller
     public function deleteProject($id, Request $request)
     {
 
-        $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization",null);
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $identity = $jwt_auth->checkToken($token, true);
 
             $project=$this->getDoctrine()->getRepository('ScrumBundle:Project')->find($id);
 
@@ -283,6 +278,7 @@ class ProjectController extends Controller
         $em=$this->getDoctrine()->getManager();
         $em->remove($project);
         $em->flush();
+
         $response=array(
             'message'=>'project deleted !',
             'errors'=>null,
@@ -294,7 +290,9 @@ class ProjectController extends Controller
         }else{
 
             $data = array(
-                'data'	=>'Failed ! check your token validation'
+                'data'	=>'Failed ! ',
+                'errors'=>'check your token validation',
+                'result'=>null
             );
 
             return new JsonResponse($data);
@@ -318,8 +316,7 @@ class ProjectController extends Controller
         $token = $request->get("authorization", null);
         $authCheck = $jwt_auth->checkToken($token);
         if ($authCheck) {
-//id user mel token mel identity
-            $identity = $jwt_auth->checkToken($token, true);
+
 
             if ($content = $request->getContent()) {
                 $parametersAsArray = json_decode($content, true);
@@ -392,7 +389,7 @@ class ProjectController extends Controller
      * @return JsonResponse
      */
     public function filtreAction(Request $request){
-        $parametersAsArray = [];
+
         $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
@@ -400,7 +397,6 @@ class ProjectController extends Controller
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $identity = $jwt_auth->checkToken($token, true);
 
             if ($content = $request->getContent()) {
                 $parametersAsArray = json_decode($content, true);
@@ -412,18 +408,29 @@ class ProjectController extends Controller
             }
             //return new JsonResponse($project);
 
-            return $helpers->json($project);
+            $data=$this->get('jms_serializer')->serialize($project,'json');
+
+            $response = array(
+                'data' => 'success',
+                'errors' => null,
+                'result' =>json_decode($data)
+            );
+
+            return new JsonResponse($response);
+
         }
         else{
             $data = array(
-                "data" => "Failed ! check your token validation !!"
+                 'data' => 'Failed !',
+                 'errors' => 'check your token validation !!',
+                 'result' => null
             );
         }
 
         return new JsonResponse($data);
     }
 
-
+//filtre pour afficher les projets par id de l'utilisateur connecté
     /**
      * @Route("/projectId")
      * @Method("POST")
@@ -431,7 +438,7 @@ class ProjectController extends Controller
      * @return JsonResponse
      */
     public function ProjectById(Request $request){
-        $parametersAsArray = [];
+
         $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
@@ -439,7 +446,8 @@ class ProjectController extends Controller
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $identity = $jwt_auth->checkToken($token, true);if ($content = $request->getContent()) {
+
+            if ($content = $request->getContent()) {
                 $parametersAsArray = json_decode($content, true);
                 // hedhi id user eli 3mal creation mazel id user eli affecte lil projet
                 $project = $this->getDoctrine()->getRepository('ScrumBundle:Project')->findBy(array(
@@ -480,7 +488,7 @@ class ProjectController extends Controller
         $authCheck = $jwt_auth->checkToken($token);
 
         if ($authCheck) {
-            $identity = $jwt_auth->checkToken($token, true);
+
 
             if ($content = $request->getContent()) {
                 $parametersAsArray = json_decode($content, true);

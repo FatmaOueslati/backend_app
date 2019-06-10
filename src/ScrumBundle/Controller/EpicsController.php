@@ -2,7 +2,7 @@
 
 namespace ScrumBundle\Controller;
 
-use AppBundle\Services\Helpers;
+
 use AppBundle\Services\JwtAuth;
 use ScrumBundle\Entity\Epics;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 
 class EpicsController extends Controller
 {
@@ -18,21 +18,25 @@ class EpicsController extends Controller
      *
      * @Route("/epic/{id}")
      * @Method("POST")
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
      */
     public function showEpics($id, Request $request)
     {
-        $helpers = $this->get(Helpers::class);
+
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization",null);
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $identity = $jwt_auth->checkToken($token, true);
+
              $epic = $this->getDoctrine()->getRepository('ScrumBundle:Epics')->find($id);
 
 
         if (empty($epic)) {
+
             $response = array(
                 'message' => 'Epic not found',
                 'error' => null,
@@ -57,46 +61,50 @@ class EpicsController extends Controller
     }else{
 
             $data = array(
-                    'data'	=>'Failed ! check your token validation'
+                'data'	=>'Failed !',
+                'error' =>  'check your token validation',
+                'result' => null
             );
           }
 
-              return $helpers->json($data);
+        return new JsonResponse($data);
+
 
     }
 
     /**
      * @Route("/new/epic")
      * @Method({"POST"})
+     * @param Request $request
+     * @return JsonResponse
      */
     public function CreateEpics(Request $request)
     {
 
-        $helpers = $this->get(Helpers::class);
+
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization", null);
         $authCheck = $jwt_auth->checkToken($token);
+
         if ($authCheck) {
-            $identity = $jwt_auth->checkToken($token, true);
-            $parametersAsArray = [];
+
             if ($content = $request->getContent()) {
                 $parametersAsArray = json_decode($content, true);
                 $em = $this->getDoctrine()->getManager();
 
                 if ($parametersAsArray != null) {
 
-
                     $epic = new Epics();
 
                    $project_id= $parametersAsArray['project_id'];
 
-                   $projet=$this->getDoctrine()->getManager()->getRepository('ScrumBundle:Project')->find($project_id);
+                   $project=$this->getDoctrine()->getManager()->getRepository('ScrumBundle:Project')->find($project_id);
 
                     $epic->setName($parametersAsArray['name']);
                     $epic->setDescription($parametersAsArray['description']);
                     $epic->setSommeComplex($parametersAsArray['sommeComplex']);
-                    $epic->setEpics($projet);
+                    $epic->setEpics($project);
 
 
                     $em->persist($epic);
@@ -107,24 +115,33 @@ class EpicsController extends Controller
                         'error' => null,
                         'result' => null
                     );
+
+                    return new JsonResponse($data);
+
+
                 } else {
                     $data = array(
-                        "data" => "parameters failed"
+                        "data" => "Failed !",
+                        'error' => 'send data to create an epic',
+                        'result' => null
                     );
 
-
+                    return new JsonResponse($data);
                 }
             }
-            else{
-                $data = array(
-                    "data" => "Failed ! check your token validation !!"
-                );
-            }
 
-            return $helpers->json($data);
+
+        }
+        else{
+            $data = array(
+                "data" => "Failed !",
+                'error' => ' check your token validation !!',
+                'result' => null
+            );
 
         }
 
+        return new JsonResponse($data);
 
     }
 
@@ -133,18 +150,20 @@ class EpicsController extends Controller
      *
      * @Route("/epic/{id}/delete")
      * @Method("POST")
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
      */
     public function deleteEpic($id, Request $request)
     {
 
-        $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization",null);
         $authCheck = $jwt_auth->checkToken($token);
 
         if($authCheck){
-            $identity = $jwt_auth->checkToken($token, true);
+
             $epic=$this->getDoctrine()->getRepository('ScrumBundle:Epics')->find($id);
 
             if (empty($epic)) {
@@ -155,7 +174,7 @@ class EpicsController extends Controller
                     'result'=>null
                 );
 
-                return new JsonResponse($response, Response::HTTP_NOT_FOUND);
+                return new JsonResponse($response);
             }
 
             $em=$this->getDoctrine()->getManager();
@@ -167,16 +186,18 @@ class EpicsController extends Controller
                 'result'=>null
             );
 
-            return new JsonResponse($response,200);
+            return new JsonResponse($response);
 
         }else{
 
             $data = array(
-                'data'	=>'Failed ! check your token validation'
+                'data'	=>'Failed !',
+                'errors'=>'check your token validation',
+                'result'=>null
             );
         }
+        return new JsonResponse($data);
 
-        return $helpers->json($data);
 
 
     }
@@ -184,18 +205,20 @@ class EpicsController extends Controller
     /**
      * @Route("/epic/{id}/edit")
      * @Method({"POST"})
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
      */
     public function UpdateEpics($id,Request $request)
     {
 
-        $helpers = $this->get(Helpers::class);
         $jwt_auth = $this->get(JwtAuth::class);
 
         $token = $request->get("authorization", null);
         $authCheck = $jwt_auth->checkToken($token);
+
         if ($authCheck) {
-            $identity = $jwt_auth->checkToken($token, true);
-            $parametersAsArray = [];
+
             if ($content = $request->getContent()) {
                 $parametersAsArray = json_decode($content, true);
                 $em = $this->getDoctrine()->getManager();
@@ -226,21 +249,27 @@ class EpicsController extends Controller
                     );
                 } else {
                     $data = array(
-                        "data" => "parameters failed"
+                        "data" => "parameters failed",
+                        'error' => null,
+                        'result' => null
                     );
 
-
                 }
-            }
-            else{
-                $data = array(
-                    "data" => "Failed ! check your token validation !!"
-                );
-            }
 
-            return $helpers->json($data);
+                return new JsonResponse($data);
+
+            }
 
         }
+        else{
+            $data = array(
+                "data" => "Failed !",
+                'error' => 'check your token validation !!',
+                'result' => null
+            );
+        }
+
+        return new JsonResponse($data);
 
 
     }
